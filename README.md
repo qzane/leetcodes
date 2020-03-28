@@ -1,6 +1,32 @@
 # leetcodes
 Share my solutions, feel free to leave any comment by posting "Issues"
 
+# [weekly-contest-181](https://leetcode.com/contest/weekly-contest-181)
+
+# 1390. Four Divisors
+Method 1: preprocess all prime numbers below 1e5, for each `number`, we go through every prime, once we find one `divisor`, we calculate the `remainder` there are three possibilities:
+1. the `remainder` is a prime and different from `divisor`
+2. the `remainder` is `divisor * divisor`
+3. any other cases
+Only in the first two cases, this `number` has exactually four divisors.
+
+# 1391. Check if There is a Valid Path in a Grid
+dfs
+
+# 1392. Longest Happy Prefix
+Rolling Hash method. Let's start with the brute force method: there are `n-1` prefix and comparing two strings of length `m` takes `O(m)`, so the brute force method takes `O(n^2)`. Can we do anything to make the string compare faster? By using rolling hash, we treat each string as a base-26 number mod a very big prime number `MOD` (like 1e9+7) and we can calculate the hash value for each prefix in O(1) using the previous prefix, here is an example for "ababab":
+1. prefix1: 'a', hash = 0, suffix1: 'b', hash = 1
+2. prefix2: '**a**b', hash = (**0** * 26 + 1)%MOD = 1, suffix2: 'a**b**', hash = (0*(26\**1%MOD)+**1**)%MOD = 1
+3. prefix3: '**ab**a', hash = (**1** * 26 + 0)%MOD = 26, suffix3: 'b**ab**', hash = (1*(26\**2%MOD)+**1**)%MOD = 677
+4. prefix4: '**aba**b', hash = (**26** * 26 + 1)%MOD = 677, suffix4: 'a**bab**',  hash = (0*(26\**3%MOD)+**667**)%MOD = 677
+5. prefix5: '**abab**a', hash = (**677** * 26 + 0)%MOD = 17602, suffix5: 'b**abab**', hash = (1*(26\**4%MOD)+**677**)%MOD = 457653
+(to calculate new hash value in `O(1)`, we also need to keep track of `26**k%MOD`)<br>
+
+The hash value for prefix and suffix with length 2 and 4 are the same, so the longest happy prefix is prefix4.
+
+
+
+
 # [weekly-contest-180](https://leetcode.com/contest/weekly-contest-180)
 
 ### 5357. Design a Stack With Increment Operation
