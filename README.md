@@ -8,6 +8,7 @@ Method 1: preprocess all prime numbers below 1e5, for each `number`, we go throu
 1. the `remainder` is a prime and different from `divisor`
 2. the `remainder` is `divisor * divisor`
 3. any other cases
+
 Only in the first two cases, this `number` has exactually four divisors.
 
 # 1391. Check if There is a Valid Path in a Grid
