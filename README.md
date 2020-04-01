@@ -78,7 +78,7 @@ class Solution:
 
 ## Approach 3: Preprocessing with Binary Indexed Tree
 The bottleneck now is the preprocessing, can we accelerate it? The answer is YES, by using a data structure called Binary Indexed Tree. Binary Indexed Tree is a data structure that can calculate the prefix sum of a list of numbers in O(log n) and the update of any number also takes O(log n). More details can be found [here](https://www.geeksforgeeks.org/binary-indexed-tree-or-fenwick-tree-2/).
-Since `1 <= rating[i] <= 10^5`, we can build a binary indexed tree `BIT` of size 10^5, BIT.values(i) represents the number of ratings that equal to i. `BIT.prefix(i-1)` is the number of ratings that smaller than i. `BIT.prefix(10^5) - BIT.prefix(i)` is the number of ratings that larger than i.
+Since `1 <= rating[i] <= 10^5`, we can build a binary indexed tree `BIT` of size 10^5, `BIT.values(i)` represents the number of ratings that equal to i. `BIT.prefix(i-1)` is the number of ratings that smaller than i. `BIT.prefix(10^5) - BIT.prefix(i)` is the number of ratings that larger than i.
 
 ``` Python
 class BinaryIndexedTree:
