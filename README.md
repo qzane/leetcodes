@@ -1,10 +1,151 @@
 # leetcodes
 Share my solutions, feel free to leave any comment by posting "Issues"
 
+# [weekly-contest-182](https://leetcode.com/contest/weekly-contest-182)
+
+<span id="Q1395"></span>
+# 1395. Count Number of Teams
+The size of the original problem is very small so that even the brute force approach can pass all the test cases. To help preparing for job interviews, I'll introduce three different methods that has different time complexities.
+
+## Approach 1: Brute force
+
+The brute force approach is straight forward, we go through each index of `i`, `j`, `k`, and see if they meet the requirement.
+
+``` Python
+class Solution:
+    def numTeams(self, rating: List[int]) -> int:
+        n = len(rating)
+        if n <= 2:
+            return 0
+        ans = 0
+        for i in range(n):
+            for j in range(i):
+                for k in range(j):
+                    if rating[i] > rating[j] and rating[j] > rating[k]:
+                        ans += 1
+                    elif rating[i] < rating[j] and rating[j] < rating[k]:
+                        ans += 1
+        return ans
+```
+
+### Complexity Analysis:
+* Time complexity : O(n^3). There are three for loops so the time complexity is O(n^3).
+* Space complexity : O(1).
+
+## Approach 2: Brute force with preprocessing
+For each soldier in the middle of the team, the number of teams for him is the `larger_ratings_to_the_left` * `smaller_ratings_to_the_right` + `smaller_ratings_to_the_left` * `larger_rating_to_the_right`. We can preprocess these values in advance to save time.
+
+
+``` Python
+class Solution:
+    def numTeams(self, rating: List[int]) -> int:
+        n = len(rating)
+        if n <= 2:
+            return 0
+            
+        larger_ratings_to_the_left = [0] * n
+        larger_ratings_to_the_right =  [0] * n
+        smaller_ratings_to_the_left = [0] * n
+        smaller_ratings_to_the_right = [0] * n
+        
+        # preprocessing
+        for i in range(n):
+            rating_i = rating[i]
+            for j in range(i): # from left to right
+                if rating[j] > rating_i:
+                    larger_ratings_to_the_left[i] += 1
+                elif rating[j] < rating_i:
+                    smaller_ratings_to_the_left[i] += 1                    
+            for j in range(n-1, i, -1): # from right to left
+                if rating[j] > rating_i:
+                    larger_ratings_to_the_right[i] += 1
+                elif rating[j] < rating_i:
+                    smaller_ratings_to_the_right[i] += 1
+               
+        # go through each soldier as the middle of the team
+        ans = 0
+        for i in range(1, n-1):
+            ans += larger_ratings_to_the_left[i] * smaller_ratings_to_the_right[i]
+            ans += smaller_ratings_to_the_left[i] * larger_ratings_to_the_right[i]
+            
+        return ans
+```
+
+### Complexity Analysis:
+* Time complexity : O(n^2). The time complex for preprocessing is O(n^2), the time complex for final processing is O(n).
+* Space complexity : O(n). We use 4 extra lists to record the preprocessed results.
+
+
+## Approach 3: Preprocessing with Binary Indexed Tree
+The bottleneck now is the preprocessing, can we accelerate it? The answer is YES, by using a data structure called Binary Indexed Tree. Binary Indexed Tree is a data structure that can calculate the prefix sum of a list of numbers in O(log n) and the update of any number also takes O(log n). More details can be found [here](https://www.geeksforgeeks.org/binary-indexed-tree-or-fenwick-tree-2/).
+Since `1 <= rating[i] <= 10^5`, we can build a binary indexed tree `BIT` of size 10^5, BIT.values(i) represents the number of ratings that equal to i. `BIT.prefix(i-1)` is the number of ratings that smaller than i. `BIT.prefix(10^5) - BIT.prefix(i)` is the number of ratings that larger than i.
+
+``` Python
+class BinaryIndexedTree:
+    def __init__(self, maxsize):
+        self.maxsize = maxsize
+        self.values = [0] * (maxsize+1)
+    def add(self, index, value):
+        ''' 1 <= index <= maxsize '''
+        while(index<=self.maxsize):
+            self.values[index]+=value
+            index += index & (-index)
+    def prefix(self, index):
+        ''' 1 <= index <= maxsize '''
+        res = 0
+        while(index>0):
+            res += self.values[index]
+            index -= index & (-index)
+        return res
+
+class Solution:
+    def numTeams(self, rating: List[int]) -> int:
+        maxRating = max(rating) # <= 10 ** 5
+        n = len(rating)
+        if n <= 2:
+            return 0
+            
+        larger_ratings_to_the_left = [0] * n
+        larger_ratings_to_the_right =  [0] * n
+        smaller_ratings_to_the_left = [0] * n
+        smaller_ratings_to_the_right = [0] * n
+        # preprocessing
+        BIT = BinaryIndexedTree(maxRating)   # from left to right
+        for i in range(n):
+            rating_i = rating[i]
+            smaller_ratings_to_the_left[i] = BIT.prefix(rating_i-1)
+            larger_ratings_to_the_left[i] = BIT.prefix(maxRating) - BIT.prefix(rating_i)
+            BIT.add(rating_i, 1)        
+        BIT = BinaryIndexedTree(maxRating) # from right to left
+        for i in range(n-1, -1, -1):
+            rating_i = rating[i]
+            smaller_ratings_to_the_right[i] = BIT.prefix(rating_i-1)
+            larger_ratings_to_the_right[i] = BIT.prefix(maxRating) - BIT.prefix(rating_i)
+            BIT.add(rating_i, 1)    
+               
+        # go through each soldier as the middle of the team
+        ans = 0
+        for i in range(1, n-1):
+            ans += larger_ratings_to_the_left[i] * smaller_ratings_to_the_right[i]
+            ans += smaller_ratings_to_the_left[i] * larger_ratings_to_the_right[i]
+            
+        return ans
+```
+ 
+### Complexity Analysis:
+* Time complexity : O(n log maxRating). The time complex for preprocessing is O(n log maxRating), the time complex for final processing is still O(n).
+* Space complexity : O(n+maxRating). The space complexity for the BinaryIndexedTree is O(maxRating).
+
+# 1396. Design Underground System
+todo
+# 1397. Find All Good Strings
+todo
+
+
 # [weekly-contest-181](https://leetcode.com/contest/weekly-contest-181)
 
 # 1390. Four Divisors
-Method 1: preprocess all prime numbers below 1e5, for each `number`, we go through every prime, once we find one `divisor`, we calculate the `remainder` there are three possibilities:
+Method 1: preprocess all prime numbers below 1e5, for each `number`, just go through every prime, once we find one `divisor`, we calculate the `remainder` there are three possibilities:
 1. the `remainder` is a prime and different from `divisor`
 2. the `remainder` is `divisor * divisor`
 3. any other cases
