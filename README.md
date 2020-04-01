@@ -5,7 +5,7 @@ Share my solutions, feel free to leave any comment by posting "Issues"
 
 <span id="Q1395"></span>
 # 1395. Count Number of Teams
-The size of the original problem is very small so that even the brute force approach can pass all the test cases. To help preparing for job interviews, I'll introduce three different methods that has different time complexities.
+The size of the original problem is very small so that even the brute force approach can pass all the test cases. However, to help preparing for job interviews, I'll introduce three different methods that has different time complexities.
 
 ## Approach 1: Brute force
 
