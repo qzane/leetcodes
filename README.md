@@ -1,6 +1,30 @@
 # leetcodes
 Share my solutions, feel free to leave any comment by posting "Issues"
 
+# [weekly-contest-183](https://leetcode.com/contest/weekly-contest-183)
+
+# 1404. Number of Steps to Reduce a Number in Binary Representation to One
+Use `int(s, 2)` and simulate the process, it takes at most 2*log2(s) steps.
+
+# 1405. Longest Happy String
+My greddy solution is that, whenever possible try to add the charactor with largest remained occurrences. 
+
+# 1406. Stone Game III
+DP = [-inf] * (N+1)
+* DP[i] means the best you can get when pick from ith pile
+sum_to_last = [0]*(N+1)
+* sum_to_last means the suffix sum from ith pile
+
+Calculate from right to left or use a Memoization search
+```
+DP[i] = sum_to_last[i]-DP[i+1]
+DP[i] = max(DP[i], sum_to_last[i]-DP[i+2])
+DP[i] = max(DP[i], sum_to_last[i]-DP[i+3])
+```
+Result: 
+* alice = DP[0]
+* bob = sum_to_last[0]-alice
+
 # [weekly-contest-182](https://leetcode.com/contest/weekly-contest-182)
 
 <span id="Q1395"></span>
