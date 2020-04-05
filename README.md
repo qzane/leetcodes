@@ -146,7 +146,8 @@ DP[i][j][g][h] is the number of strings with length i
 * g is True means the strings are equal to s1[:i]
 * h is True means the strings are equal to s2[:i]
 
-Corner Casees: only DP[0][0][1][1] = 1
+Corner Casees: only DP[0][0][1][1] = 1 <br>
+Calculation: 
 ```
 get_new_j = [[0]*26 for i in range(len(evil))] 
 # get_new_j[i][c] is the length of longest suffix of evil[:i]+chr(c+'a') that matches evil
@@ -166,6 +167,7 @@ foreach (i,j,g,h), for new_char from 'a' to 'z':
         new_j = get_new_j[j][c]
         DP[i+1][new_j][new_g][new_h]+=DP[i][j][g][h]
 ```
+Return: sum(DP[n][j][g][h] foreach (j,g,h))
 
 # [weekly-contest-181](https://leetcode.com/contest/weekly-contest-181)
 
