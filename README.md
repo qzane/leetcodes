@@ -7,7 +7,8 @@ Share my solutions, feel free to leave any comment by posting "Issues"
 Use `int(s, 2)` and simulate the process, it takes at most 2*log2(s) steps.
 
 # 1405. Longest Happy String
-My greddy solution is that, whenever possible try to add the charactor with largest remained occurrences. 
+My greddy solution is that, whenever possible try to add the charactor with largest remained occurrences. <br>
+You can use a heap to maintain the remained occurrences of 'a','b' and 'c', which will not make you code faster but helps to avoid too many if-else and makes you code looks more clear.
 
 # 1406. Stone Game III
 DP = [-inf] * (N+1)
