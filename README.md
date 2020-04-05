@@ -137,10 +137,35 @@ class Solution:
 * Space complexity : O(n+maxRating). The space complexity for the BinaryIndexedTree is O(maxRating).
 
 # 1396. Design Underground System
-todo
-# 1397. Find All Good Strings
-todo
+use two HashMap (stationA, stationB) -> int to record the total time from and how many times of this transportation we have. <br>
+use one HashMap customerID -> (station, time) to record each customer that has checked in but not checked out. <br>
 
+# 1397. Find All Good Strings
+DP[i][j][g][h] is the number of strings with length i
+* the suffix's longest match is evil[:j]
+* g is True means the strings are equal to s1[:i]
+* h is True means the strings are equal to s2[:i]
+
+Corner Casees: only DP[0][0][1][1] = 1
+```
+get_new_j = [[0]*26 for i in range(len(evil))] 
+# get_new_j[i][c] is the length of longest suffix of evil[:i]+chr(c+'a') that matches evil
+foreach (i,c): # you can use KMP for better speed but brute force O(N^2) is enough because len(evil)<=50
+    string = evil[:i] + chr(c+ord('a'))
+    for length in range(i+1, 0, -1):
+        if string.endswith(evil[:length]):
+            get_new_j[i][c]=length
+            break
+foreach (i,j,g,h), for new_char from 'a' to 'z':
+    if g and new_char < s1[i] or h and new_char > s2[i]: continue
+    new_g = int(g and new_char == s1[i])
+    new_h = int(h and new_char == s2[i])
+    if new_char == evil[j] and j < K-1:
+        DP[i+1][j+1][new_g][new_h]+=DP[i][j][g][h]
+    elif new_char != evil[j]:
+        new_j = get_new_j[j][c]
+        DP[i+1][new_j][new_g][new_h]+=DP[i][j][g][h]
+```
 
 # [weekly-contest-181](https://leetcode.com/contest/weekly-contest-181)
 
