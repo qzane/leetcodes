@@ -1,6 +1,26 @@
 # leetcodes
 Share my solutions, feel free to leave any comment by posting "Issues"
 
+# [weekly-contest-184](https://leetcode.com/contest/weekly-contest-184)
+
+# 1409. Queries on a Permutation With Key
+Since `m` is very small (<=1000), the brute force algorithm similar to insertion sort will be accepted.
+
+# 1410. HTML Entity Parser
+Just several `str.replace`.
+
+# 1411. Number of Ways to Paint N × 3 Grid
+If you want to know the ways for n rows, only the pattern of the (n-1)th row matters. And there are only two kinds of patterns: ABA or ABC. Use `DP(n, 0)` to represent the number of ways when the last row is ABA and `DP(n, 1)` represents the number of pattern ABC. <br>
+The initial step: 
+* DP(0,0) = 6
+* DP(0,1) = 6
+
+With some doodle on a scratch paper, you can find out that:<br>
+* DP(n,0) = 3 * DP(n-1, 0) + 2 * DP(n-1, 0)
+* DP(n,1) = 2 * DP(n-1, 0) + 2 * DP(n-1, 1). 
+
+This is an O(n) algorithm when using DP. And you can further optimize it to O(log n) with [Matrix Exponentiation](https://www.geeksforgeeks.org/matrix-exponentiation/).
+
 # [weekly-contest-183](https://leetcode.com/contest/weekly-contest-183)
 
 # 1404. Number of Steps to Reduce a Number in Binary Representation to One
