@@ -4,7 +4,9 @@ Share my solutions, feel free to leave any comment by posting "Issues"
 # [weekly-contest-184](https://leetcode.com/contest/weekly-contest-184)
 
 # 1409. Queries on a Permutation With Key
-Since `m` is very small (<=1000), the brute force algorithm similar to insertion sort will be accepted.
+Since `m` is very small (<=1000), the brute force algorithm similar to insertion sort will be accepted. <br>
+There is a very brilliant O(`m`+`queries.length`)=O(`m`) solution proposed by [awice](https://leetcode.com/problems/queries-on-a-permutation-with-key/discuss/575019/Python-Fenwick-tree-O(n-log-n)) using a [Binary Indexed Tree(Fenwick Tree)](https://www.geeksforgeeks.org/binary-indexed-tree-or-fenwick-tree-2/). <br>
+The idea is to create an array `A` with size (`queries.length`+`m`). The last `m` blocks represent the values from 1 to `m`. For the kth query, we empty the target block and move that value to `A[-m-k]`. To local each value, we need maintain a hashmap to record the value and the location in `A`. And to find the index for each block, we can use a Binary Indexed Tree: we put a '1' to each block that has a value and '0' to any empty block, so the prefix_sum to any block is the index for the value of that block.
 
 # 1410. HTML Entity Parser
 Just several `str.replace`.
