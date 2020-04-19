@@ -13,7 +13,7 @@ Use an array `nums` of size 4,  `num[i]` means the number of frogs that is about
 First, preprocess a matrix `combinations[i][j]` means the number of combinations if we chose `i` items from `j` items. 
 * `combinations[i][j] = (combinations[i][j-1]+combinations[i-1][j-1])`
 
-Next, we will need a matrix `power[i][j]` means the `jth` power of i. <br>
+Next, we will need a matrix `power[i][j]` means the `jth` power of i. (you can avoid this matrix using [Modular Exponentiation](https://www.geeksforgeeks.org/modular-exponentiation-power-in-modular-arithmetic/)<br>
 
 Finally, we have the DP solution to this problem: <br>
 `dp[n,m,k]` has the same defination from the question.
