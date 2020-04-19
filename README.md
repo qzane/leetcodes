@@ -1,6 +1,21 @@
 # leetcodes
 Share my solutions, feel free to leave any comment by posting "Issues"
 
+# [biweekly-contest-24](https://leetcode.com/contest/biweekly-contest-24)
+
+# 1414. Find the Minimum Number of Fibonacci Numbers Whose Sum Is K
+If you know the truth that __any integer can be represented by the sum of fibonacci numbers__, the greddy solution is straightfoward: always take the biggest fibonacci numbers that is smaller than K. Since the growing rate of fibonacci numbers is O(k^n), this solution takes O(log n) time and uses O(log n) space to store all fibonacci numbers smaller than K.
+
+# 1415. The k-th Lexicographical String of All Happy Strings of Length n
+The number of happy stringw with length n is `3*2^(n-1)`.  So if `k` lies in the first `1/3` part, the string must start with 'a', if `k` lies in the second part, it starts with 'b', else it starts with 'c'. You can recover the whole string in this way, the only thing to notice is that for any following char, there are only two possibilities.
+
+# 1416. Restore The Array
+`dp[i]` means ways to decode the string starting from `s[i]`
+* if `s[i]=='0'`, `dp[i]=0`
+* else `dp[i]]=sum(dp[i+k])`
+
+
+
 # [weekly-contest-184](https://leetcode.com/contest/weekly-contest-184)
 
 # 1409. Queries on a Permutation With Key
