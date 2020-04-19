@@ -1,6 +1,26 @@
 # leetcodes
 Share my solutions, feel free to leave any comment by posting "Issues"
 
+# [weekly-contest-185](https://leetcode.com/contest/weekly-contest-185)
+
+# 1418. Display Table of Food Orders in a Restaurant
+Use two hashset, one for table and one for food. Use a hashmap of hashmap to store the number of each food on each table.
+
+# 1419. Minimum Number of Frogs Croaking
+Use an array `nums` of size 4,  `num[i]` means the number of frogs that is about to say `'croak'[i+1]`. Simulate the process to produce `croakOfFrogs` and the largest running sum of `nums` is the answer. Do forget to check if there is any remained frogs in the end.
+
+# 1420. Build Array Where You Can Find The Maximum Exactly K Comparisons
+First, preprocess a matrix `combinations[i][j]` means the number of combinations if we chose `i` items from `j` items. 
+* `combinations[i][j] = (combinations[i][j-1]+combinations[i-1][j-1])`
+
+Next, we will need a matrix `power[i][j]` means the `jth` power of i. <br>
+
+Finally, we have the DP solution to this problem: <br>
+`dp[n,m,k]` has the same defination from the question.
+* if k < 0 or m < k or n < k: dp[n,m,k] = 0
+* if n == k: dp[n,m,k] = combinations[k][m]
+* else:  dp[n,m,k] = sum(dp[pos-1, m-1, k-1] * power[m, n-pos]) # the first `m` is at `pos`
+
 # [biweekly-contest-24](https://leetcode.com/contest/biweekly-contest-24)
 
 # 1414. Find the Minimum Number of Fibonacci Numbers Whose Sum Is K
