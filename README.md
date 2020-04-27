@@ -1,6 +1,23 @@
 # leetcodes
 Share my solutions, feel free to leave any comment by posting "Issues"
 
+# [weekly-contest-186](https://leetcode.com/contest/weekly-contest-186)
+
+# 1423. Maximum Points You Can Obtain from Cards
+Sliding window(or two pointers): 1). Sum up the first K cards 2). initialize two pointers: `i=k-1`(the card to be removed) `j=cardPoints.length-1`(the card to be added) 3). in each step, remove card[i] and add card[j] to the running sum, update the maximum and update i,j.
+
+# 1424. Diagonal Traverse II
+The brute force solution is: go through each diagonals and check if there is any number in each position. However this solutio takes O(nums.length^2) time and you will get TLE. <br>
+A better solution is that, when you go through each diagonal, create a list `next_diagonal`. For each element you are visiting, if it has a successor in the same line, at the (x,y) cordinates to `next_diagonal`. And in the next diagonal, besides the first element, you only need to visit the elements in the previous `next_diagonal` list.
+
+# 1425. Constrained Subset Sum
+You need first check if every number is non-positive, and return max(nums) in that case. <br>
+The naive DP solution is:
+* DP[i] means the max sum when you select nums[i] and any previous numbers.
+* DP[i] = max(0, nums[i]+DP[j] for j in range(i-k, i))
+
+The above solution takes O(nk) time which will get TLE, we need to get rid of the for loop `for j`. To do that, we can use a [Monotonic Queue](https://leetcode.com/problems/shortest-subarray-with-sum-at-least-k/discuss/204290/Monotonic-Queue-Summary) and the time complexity can be reduced to O(n).
+
 # [weekly-contest-185](https://leetcode.com/contest/weekly-contest-185)
 
 # 1418. Display Table of Food Orders in a Restaurant
