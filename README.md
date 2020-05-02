@@ -1,6 +1,24 @@
 # leetcodes
 Share my solutions, feel free to leave any comment by posting "Issues"
 
+# [biweekly-contest-25](https://leetcode.com/contest/biweekly-contest-25)
+
+# 1432. Max Difference You Can Get From Changing an Integer
+To find the largest number is very easy: from left to right, find the first digit that is not '9' and replace that with '9'. <br>
+The smallest number is a bit treaky: there cannot be any leading '0', so 
+1.  if the first digit is not '1', replace that with '1' 
+2.  if the first digit is '1', we cannot replace '1' with '0', so you have to find the first digit that is not '1' or '0' and replace that digit with '0'.
+
+# 1433. Check If a String Can Break Another String
+You only need to compare the sorted strings, if one is always greater than the other.
+
+# 1434. Number of Ways to Wear Different Hats to Each Other
+We notices that the number of hats is very large (m<=40) while the number of people is very small (n<=10), so we can think about some algorithm that runs in O(m*2^n*something_else). <br>
+`DP[m][k]` means number of ways to wear the first `m` hats, and `k` is the a 10-bit binary number, if the ith bit is '1', that means the ith person is still waiting to have a hat. This way, we can use (k&(-k)) to extract the first person without a hat: <br>
+DP[m][k] = sum(DP[m-1][k^(1<<i)] for i in range(10) if k&(1<<i) > 0 and m in hats[i]) <br>
+The time complexity is O(mn*2^n), the space complexity is O(2^n) if you use rolling DP.
+
+
 # [weekly-contest-186](https://leetcode.com/contest/weekly-contest-186)
 
 # 1423. Maximum Points You Can Obtain from Cards
