@@ -1,6 +1,22 @@
 # leetcodes
 Share my solutions, feel free to leave any comment by posting "Issues"
 
+# [biweekly-contest-26](https://leetcode.com/contest/biweekly-contest-26)
+
+# 1447. Simplified Fractions
+Iterate through every possible fractions and use [GCD](https://www.geeksforgeeks.org/c-program-find-gcd-hcf-two-numbers/) to see if it is a simplified one. The time complexity is O(n^2 log n).
+
+# 1448. Count Good Nodes in Binary Tree
+`dfs(node, max_val = -100000)`
+
+# 1449. Form Largest Integer With Digits That Add up to Target
+My solution to this problem is like solving a [Unbounded Knapsack problem](https://www.geeksforgeeks.org/unbounded-knapsack-repetition-items-allowed/). In this problem, the `target` is like the size of the weight of a knapsack. Digits 0-9 are like ten different items whose weight is given by `cost`. Question is: what is the 'value' for each digit? There are two requirement:
+1. more digits are always better (111 is better than 99)
+2. when the length are the same, a single '9' is better than all other digits (9111111111 is better than 8888888888). 
+
+Since `target` <= 5000, the value I assigned to the digit `i` is: 5001^9 + 5001^(i-1). Which meets the above two rules perfectly. <br>
+The remainning thing is trivial, since Python has built-in arbitrary precision integer, a standard UKP solution can solve the maximum value. It's also easy to restore the digits we picked from the maximum value:  the number if digit `i` is equal to `value // 5001^(i-1) % 5001`.
+
 # [weekly-contest-187](https://leetcode.com/contest/weekly-contest-187)
 
 # 1437. Check If All 1's Are at Least Length K Places Away
